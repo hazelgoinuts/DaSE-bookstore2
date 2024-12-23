@@ -40,3 +40,36 @@ def add_funds():
     b = Buyer()
     code, message = b.add_funds(user_id, password, add_value)
     return jsonify({"message": message}), code
+
+# 新增的
+
+# 收货
+@bp_buyer.route("/received", methods=["POST"])
+def received():
+    user_id = request.json.get("user_id")
+    order_id = request.json.get("order_id")
+    b = Buyer()
+    code, message = b.received(user_id, order_id)
+    return jsonify({"message": message}), code
+
+# 取消订单
+@bp_buyer.route("/cancel_order", methods=["POST"])
+def cancel_order():
+    user_id = request.json.get("user_id")
+    order_id = request.json.get("order_id")
+    b = Buyer()
+    code, message = b.cancel_order(user_id, order_id)
+    return jsonify({"message": message}), code
+
+# 查询历史订单
+@bp_buyer.route("/search_order", methods=["POST"])
+def search_order():
+    user_id = request.json.get("user_id")
+    b = Buyer()
+    code, message = b.search_order(user_id)
+    return jsonify({"message": message}), code
+
+
+
+
+

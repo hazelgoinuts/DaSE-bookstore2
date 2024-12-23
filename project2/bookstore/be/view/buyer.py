@@ -64,12 +64,25 @@ def cancel_order():
 # 查询历史订单
 @bp_buyer.route("/search_order", methods=["POST"])
 def search_order():
-    user_id = request.json.get("user_id")
+    user_id: str = request.json.get("user_id")
     b = Buyer()
-    code, message = b.search_order(user_id)
-    return jsonify({"message": message}), code
+    code, message, rows = b.search_order(user_id)
+    if not rows:
+        print('be: no order content !')
+        return jsonify({"message": message, "order_list": rows}), code
+    else:
+        data = []
+        for item in rows:
+            a = list(item.values())
+            d = []
+            for i in a[-1]:
+                i = list(i.values())
+                d.append(i)
+            a[-1] = d
+            data.append(a)
 
-
+        print('be:', data)
+        return json.dumps({"order_list": data}), code
 
 
 

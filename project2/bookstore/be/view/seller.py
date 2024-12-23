@@ -58,9 +58,26 @@ def delivered():
 
 # 卖家查询订单
 @bp_seller.route("/seller_search", methods=["POST"])
-def seller_search():
-    user_id = request.json.get("user_id")
+def search_order():
+    user_id: str = request.json.get("user_id")
+    store_id: str = request.json.get("store_id")
     s = seller.Seller()
-    code, message = s.search(user_id)
-    return jsonify({"message": message}), code
+    code, message, rows = s.seller_search(user_id, store_id)
+    if not rows:
+        print('be: no order content !')
+        return jsonify({"message": message, "order_list": rows}), code
+    else:
+        data = []
+        for item in rows:
+            a = list(item.values())
+            d = []
+            for i in a[-1]:
+                i = list(i.values())
+                d.append(i)
+            a[-1] = d
+            data.append(a)
+
+        print('be:', data)
+        return json.dumps({"order_list": data}), code
+
 

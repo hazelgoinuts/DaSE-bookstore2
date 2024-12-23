@@ -1,3 +1,4 @@
+
 error_code = {
     401: "authorization fail.",
     511: "non exist user id {}",
@@ -9,10 +10,10 @@ error_code = {
     517: "stock level low, book id {}",
     518: "invalid order id {}",
     519: "not sufficient funds, order id {}",
-    520: "",
-    521: "",
-    522: "",
-    523: "",
+    520: "status not allowed, order id {}",
+    521: "user have no orders, user id",
+    522: "non exist query result",
+    523: "store have no orders, store id {}",
     524: "",
     525: "",
     526: "",
@@ -38,11 +39,11 @@ def error_exist_store_id(store_id):
 
 
 def error_non_exist_book_id(book_id):
-    return 515, error_code[515].format(book_id)
+    return 515,  error_code[515].format(book_id)
 
 
 def error_exist_book_id(book_id):
-    return 516, error_code[516].format(book_id)
+    return 516,  error_code[516].format(book_id)
 
 
 def error_stock_level_low(book_id):
@@ -63,3 +64,19 @@ def error_authorization_fail():
 
 def error_and_message(code, message):
     return code, message
+
+
+def error_non_exist_search():
+    return 522, error_code[522]
+
+
+def error_status_not_allowed(order_id):
+    return 520, error_code[520].format(order_id)
+
+
+def error_user_no_order(user_id):
+    return 521, error_code[521].format(user_id)
+
+
+def error_store_no_order(store_id):
+    return 523, error_code[523].format(store_id)

@@ -36,7 +36,8 @@ class Workload:
         self.book_ids = {}
         self.buyer_ids = []
         self.store_ids = []
-        self.book_db = book.BookDB(conf.Use_Large_DB)
+        # self.book_db = book.BookDB(conf.Use_Large_DB)
+        self.book_db = book.BookDB()
         self.row_count = self.book_db.get_book_count()
 
         self.book_num_per_store = conf.Book_Num_Per_Store

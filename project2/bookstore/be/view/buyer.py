@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from be.model.buyer import Buyer
+import json
 
 bp_buyer = Blueprint("buyer", __name__, url_prefix="/buyer")
 

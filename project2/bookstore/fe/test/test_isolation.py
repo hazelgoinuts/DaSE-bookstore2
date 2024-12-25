@@ -41,30 +41,29 @@ class TestIsolation:
                     book.stock_level += 10
                     time.sleep(1)  # 模拟长事务
 
-        # 创建一个更新线程
-        update_thread = threading.Thread(target=update_book_stock)
-        update_thread.start()
-
-        # 在主线程中读取
+        # 1. 先读取一次库存(事务A)
         with self.store.get_db_session(IsolationLevel.READ_COMMITTED) as session:
             book = session.query(Store_model).filter(
                 Store_model.store_id == self.store_id,
                 Store_model.book_id == self.book_id
             ).first()
-            
-            if book:
-                initial_stock = book.stock_level
-                # 等待更新线程完成
-                update_thread.join()
-                
-                # 再次读取,应该看到更新后的值
-                book = session.query(Store_model).filter(
-                    Store_model.store_id == self.store_id,
-                    Store_model.book_id == self.book_id
-                ).first()
-                final_stock = book.stock_level
-                
-                assert final_stock == initial_stock + 10
+            initial_stock = book.stock_level
+
+        # 2. 启动更新线程，并等待完成(事务B)
+        update_thread = threading.Thread(target=update_book_stock)
+        update_thread.start()
+        update_thread.join()
+
+        # 3. 再开一个事务(事务C)来读取
+        with self.store.get_db_session(IsolationLevel.READ_COMMITTED) as session2:
+            book2 = session2.query(Store_model).filter(
+                Store_model.store_id == self.store_id,
+                Store_model.book_id == self.book_id
+            ).first()
+            final_stock = book2.stock_level
+
+        # 在 READ COMMITTED 下，此时一定能看到更新后的值
+        assert final_stock == initial_stock + 10
 
     def test_repeatable_read_isolation(self):
         """测试REPEATABLE READ隔离级别下的行为"""

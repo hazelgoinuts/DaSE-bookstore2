@@ -19,7 +19,7 @@ class Store:
             max_overflow=16,
             pool_recycle=300,
             pool_pre_ping=True,  # 连接池预检查
-            echo = True
+            echo = False
         )
         self.DBSession = sessionmaker(
             bind=self.engine,

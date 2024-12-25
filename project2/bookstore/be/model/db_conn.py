@@ -10,7 +10,6 @@ class CheckExist:
 
 
     def get_session(self, isolation_level=None):
-        logger.debug(f"Getting new session with isolation level: {isolation_level}")
 
         return store.get_db_conn(isolation_level)
 

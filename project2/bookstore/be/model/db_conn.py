@@ -1,24 +1,24 @@
 from be.model import store
 from be.model.orm_models import User as User_model, Store as Store_model, UserStore as UserStore_model
 from sqlalchemy import and_,or_
+from be.model.isolation import IsolationLevel
+
+import logging
+logger = logging.getLogger(__name__)
 
 class CheckExist:
 
 
-    def get_session(self):
-        return store.get_db_conn()
+    def get_session(self, isolation_level=None):
+        logger.debug(f"Getting new session with isolation level: {isolation_level}")
+
+        return store.get_db_conn(isolation_level)
 
     
     def user_id_exist(self, user_id):
-
         with self.get_session() as session:
             row = session.query(User_model.password).filter(User_model.user_id==user_id).all()
-
-
-            if len(row) == 0:
-                return False
-            else:
-                return True
+            return len(row) != 0
 
 
     def book_id_exist(self, store_id, book_id):

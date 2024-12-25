@@ -2,7 +2,7 @@ import sqlite3
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from be.model.orm_models import Book
+from be.model.orm import Book
 import os
 
 # 构建book.db的完整路径

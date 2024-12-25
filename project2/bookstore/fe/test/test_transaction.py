@@ -5,7 +5,7 @@ from fe.access.new_buyer import register_new_buyer
 from fe.test.gen_book_data import GenBook
 from be.model.store import Store
 from be.model.isolation import IsolationLevel
-from be.model.orm_models import Store as Store_model
+from be.model.orm import Store as Store_model
 import uuid
 
 class TestIsolation:

@@ -1,4 +1,4 @@
-from be.model.orm_models import createTable
+from be.model.orm import createTable
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from be.model.isolation import IsolationLevel

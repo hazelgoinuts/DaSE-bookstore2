@@ -1,5 +1,5 @@
 from be.model import store
-from be.model.orm_models import User as User_model, Store as Store_model, UserStore as UserStore_model
+from be.model.orm import User as User_model, Store as Store_model, UserStore as UserStore_model
 from sqlalchemy import and_,or_
 from be.model.isolation import IsolationLevel
 

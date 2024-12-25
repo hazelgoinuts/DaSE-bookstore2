@@ -58,5 +58,6 @@ def show_pages():
     is_test: bool = request.json.get("variable", True)
 
     se = Searcher()
+    # show_page(...) => 4 个返回值
     code, pagenum, row, show = se.show_page(user_id, page, content)
     return process_search_result(code, pagenum, row, show, is_test)

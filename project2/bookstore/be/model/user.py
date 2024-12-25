@@ -3,7 +3,7 @@ import time
 import logging
 from be.model import error
 from be.model import db_conn
-from be.model.orm_models import User as User_model
+from be.model.orm import User as User_model
 from sqlalchemy.exc import SQLAlchemyError
 
 # encode a json string like:

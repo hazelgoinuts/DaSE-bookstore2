@@ -8,7 +8,7 @@ from sqlalchemy import and_, or_
 
 from be.model import error
 from be.model import db_conn
-from be.model.orm_models import (
+from be.model.orm import (
     Store as Store_model,
     UserStore as UserStore_model,
     NewOrder as NewOrder_model,

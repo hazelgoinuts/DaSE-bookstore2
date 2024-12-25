@@ -5,8 +5,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import desc, and_, func
 from be.model import error
 from be.model import db_conn
-from be.model.orm_models import Store as Store_model
-from be.model.orm_models import Book as Book_model
+from be.model.orm import Store as Store_model
+from be.model.orm import Book as Book_model
 
 class SearchResult:
     def __init__(self, total_pages: int, records: List, current_page_items: List):

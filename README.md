@@ -2665,9 +2665,9 @@ def test_repeatable_read_isolation(self):
 
 ## 八、测试结果 (95%)
 
-![alt text](IMG_8124.JPG)
+![alt text](image-4.JPG)
 
- ![alt text](IMG_3834.JPG)
+ ![alt text](image-5.JPG)
 
  - **67个测试用例全部通过**
 
